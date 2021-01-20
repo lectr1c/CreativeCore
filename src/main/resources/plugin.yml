@@ -1,0 +1,11 @@
+name: CreativeCore
+version: ${project.version}
+main: se.lectr1c.creativecore.Main
+api-version: 1.16
+loadbefore: [PlotSquared, MVdWPlaceholderAPI]
+commands:
+  votewereward:
+depend: [PlotSquared]
+softdepend: [PlaceHolderAPI]
+authors: [lectr1c]
+description: Core of the creative server
