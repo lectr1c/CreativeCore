@@ -10,8 +10,12 @@ import com.plotsquared.core.plot.PlotArea;
 import com.plotsquared.core.plot.PlotAreaType;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,19 +47,21 @@ public class chatlistener
     @EventHandler
     public void oPlayerChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
-        if (PlotPlayer.wrap(p).getCurrentPlot().getPlayersInPlot() != null) {
+        if (true) {   // add local to rpplayer config
+
             e.getRecipients().clear();
             e.setCancelled(true);
 
-            List<PlotPlayer<?>> players = new ArrayList<>();
-            players = PlotPlayer.wrap(p).getCurrentPlot().getPlayersInPlot();
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this.main, () -> p.getNearbyEntities(500,500,500).forEach((en) -> {
+                if(en instanceof Player){
+                    en.sendMessage(p.getName() + ">> " + e.getMessage());
 
-            for (PlotPlayer pl : players) {
+                }
 
-                Player player = Bukkit.getPlayer(pl.getUUID());
-                assert player != null;
-                player.sendMessage(String.valueOf(this.main.getConfig().getString("LocalChatFormat")) + e.getMessage());
-            }
+            }), 1L);
+
+            p.sendMessage(p.getName() + ">> " + e.getMessage());
+
         }
     }
 }
