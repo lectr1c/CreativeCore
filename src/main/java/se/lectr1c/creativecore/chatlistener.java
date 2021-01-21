@@ -49,9 +49,6 @@ public class chatlistener
         Player p = e.getPlayer();
         if (true) {   // add local to rpplayer config
 
-
-
-
             e.getRecipients().clear();
             e.setCancelled(true);
 
